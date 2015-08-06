@@ -16,212 +16,255 @@ public final class InsnVisitorImpl implements InsnVisitor {
 
 	@Override
 	public void bipush(int operand) {
-		// TODO Auto-generated method stub
-
+		this.facade.pushOperand(Integer.valueOf(operand));
 	}
 
 	@Override
 	public void sipush(int operand) {
-		// TODO Auto-generated method stub
-
+		this.facade.pushOperand(Integer.valueOf(operand));
 	}
 
 	@Override
 	public void ldc(Object constant) {
-		// TODO Auto-generated method stub
-
+		this.facade.pushOperand(constant);
 	}
 
 	@Override
 	public void i2b() {
-		// TODO Auto-generated method stub
-
+		Integer i = this.facade.popIntegerOperand();
+		byte b = i.byteValue();
+		this.facade.pushOperand(Integer.valueOf(b));
 	}
 
 	@Override
 	public void i2s() {
-		// TODO Auto-generated method stub
-
+		Integer i = this.facade.popIntegerOperand();
+		short s = i.shortValue();
+		this.facade.pushOperand(Integer.valueOf(s));
 	}
 
 	@Override
 	public void i2l() {
-		// TODO Auto-generated method stub
-
+		Integer i = this.facade.popIntegerOperand();
+		long l = i.longValue();
+		this.facade.pushOperand(Long.valueOf(l));
 	}
 
 	@Override
 	public void l2i() {
-		// TODO Auto-generated method stub
-
+		Long l = this.facade.popLongOperand();
+		int i = l.intValue();
+		this.facade.pushOperand(Integer.valueOf(i));
 	}
 
 	@Override
 	public void iadd() {
-		// TODO Auto-generated method stub
-
+		int op2 = this.facade.popIntegerOperand();
+		int op1 = this.facade.popIntegerOperand();
+		int result = op1 + op2;
+		this.facade.pushOperand(Integer.valueOf(result));
 	}
 
 	@Override
 	public void ladd() {
-		// TODO Auto-generated method stub
-
+		long op2 = this.facade.popLongOperand();
+		long op1 = this.facade.popLongOperand();
+		long result = op1 + op2;
+		this.facade.pushOperand(Long.valueOf(result));
 	}
 
 	@Override
 	public void isub() {
-		// TODO Auto-generated method stub
-
+		int op2 = this.facade.popIntegerOperand();
+		int op1 = this.facade.popIntegerOperand();
+		int result = op1 - op2;
+		this.facade.pushOperand(Integer.valueOf(result));
 	}
 
 	@Override
 	public void lsub() {
-		// TODO Auto-generated method stub
-
+		long op2 = this.facade.popLongOperand();
+		long op1 = this.facade.popLongOperand();
+		long result = op1 - op2;
+		this.facade.pushOperand(Long.valueOf(result));
 	}
 
 	@Override
 	public void imul() {
-		// TODO Auto-generated method stub
-
+		int op2 = this.facade.popIntegerOperand();
+		int op1 = this.facade.popIntegerOperand();
+		int result = op1 * op2;
+		this.facade.pushOperand(Integer.valueOf(result));
 	}
 
 	@Override
 	public void lmul() {
-		// TODO Auto-generated method stub
-
+		long op2 = this.facade.popLongOperand();
+		long op1 = this.facade.popLongOperand();
+		long result = op1 * op2;
+		this.facade.pushOperand(Long.valueOf(result));
 	}
 
 	@Override
 	public void ineg() {
-		// TODO Auto-generated method stub
-
+		int op = this.facade.popIntegerOperand();
+		this.facade.pushOperand(Integer.valueOf(-op));
 	}
 
 	@Override
 	public void lneg() {
-		// TODO Auto-generated method stub
-
+		long op = this.facade.popLongOperand();
+		this.facade.pushOperand(Long.valueOf(-op));
 	}
 
 	@Override
 	public void iload(int var) {
-		// TODO Auto-generated method stub
-
+		Integer i = this.facade.loadInteger(var);
+		this.facade.pushOperand(i);
 	}
 
 	@Override
 	public void lload(int var) {
-		// TODO Auto-generated method stub
-
+		Long l = this.facade.loadLong(var);
+		this.facade.pushOperand(l);
 	}
 
 	@Override
 	public void istore(int var) {
-		// TODO Auto-generated method stub
-
+		Integer i = this.facade.popIntegerOperand();
+		this.facade.store(var, i);
 	}
 
 	@Override
 	public void lstore(int var) {
-		// TODO Auto-generated method stub
-
+		Long l = this.facade.popLongOperand();
+		this.facade.store(var, l);
 	}
 
 	@Override
 	public void iinc(int var, int increment) {
-		// TODO Auto-generated method stub
-
+		int i = this.facade.loadInteger(var);
+		this.facade.store(var, Integer.valueOf(++i));
 	}
 
 	@Override
 	public void lcmp() {
-		// TODO Auto-generated method stub
-
+		long op2 = this.facade.popLongOperand();
+		long op1 = this.facade.popLongOperand();
+		int cmp = Long.compare(op1, op2);
+		this.facade.pushOperand(Integer.valueOf(cmp));
 	}
 
 	@Override
 	public void ifIcmpeq(AbstractInsnNode jumpTarget) {
-		// TODO Auto-generated method stub
-
+		int op2 = this.facade.popIntegerOperand();
+		int op1 = this.facade.popIntegerOperand();
+		if (op1 == op2) {
+			this.facade.jump(jumpTarget);
+		}
 	}
 
 	@Override
 	public void ifIcmpne(AbstractInsnNode jumpTarget) {
-		// TODO Auto-generated method stub
-
+		int op2 = this.facade.popIntegerOperand();
+		int op1 = this.facade.popIntegerOperand();
+		if (op1 != op2) {
+			this.facade.jump(jumpTarget);
+		}
 	}
 
 	@Override
 	public void ifIcmplt(AbstractInsnNode jumpTarget) {
-		// TODO Auto-generated method stub
-
+		int op2 = this.facade.popIntegerOperand();
+		int op1 = this.facade.popIntegerOperand();
+		if (op1 < op2) {
+			this.facade.jump(jumpTarget);
+		}
 	}
 
 	@Override
 	public void ifIcmple(AbstractInsnNode jumpTarget) {
-		// TODO Auto-generated method stub
-
+		int op2 = this.facade.popIntegerOperand();
+		int op1 = this.facade.popIntegerOperand();
+		if (op1 <= op2) {
+			this.facade.jump(jumpTarget);
+		}
 	}
 
 	@Override
 	public void ifIcmpgt(AbstractInsnNode jumpTarget) {
-		// TODO Auto-generated method stub
-
+		int op2 = this.facade.popIntegerOperand();
+		int op1 = this.facade.popIntegerOperand();
+		if (op1 > op2) {
+			this.facade.jump(jumpTarget);
+		}
 	}
 
 	@Override
 	public void ifIcmpge(AbstractInsnNode jumpTarget) {
-		// TODO Auto-generated method stub
-
+		int op2 = this.facade.popIntegerOperand();
+		int op1 = this.facade.popIntegerOperand();
+		if (op1 >= op2) {
+			this.facade.jump(jumpTarget);
+		}
 	}
 
 	@Override
 	public void ifEq(AbstractInsnNode jumpTarget) {
-		// TODO Auto-generated method stub
-
+		int op = this.facade.popIntegerOperand();
+		if (op == 0) {
+			this.facade.jump(jumpTarget);
+		}
 	}
 
 	@Override
 	public void ifNe(AbstractInsnNode jumpTarget) {
-		// TODO Auto-generated method stub
-
+		int op = this.facade.popIntegerOperand();
+		if (op != 0) {
+			this.facade.jump(jumpTarget);
+		}
 	}
 
 	@Override
 	public void ifLt(AbstractInsnNode jumpTarget) {
-		// TODO Auto-generated method stub
-
+		int op = this.facade.popIntegerOperand();
+		if (op < 0) {
+			this.facade.jump(jumpTarget);
+		}
 	}
 
 	@Override
 	public void ifLe(AbstractInsnNode jumpTarget) {
-		// TODO Auto-generated method stub
-
+		int op = this.facade.popIntegerOperand();
+		if (op <= 0) {
+			this.facade.jump(jumpTarget);
+		}
 	}
 
 	@Override
 	public void ifGt(AbstractInsnNode jumpTarget) {
-		// TODO Auto-generated method stub
-
+		int op = this.facade.popIntegerOperand();
+		if (op > 0) {
+			this.facade.jump(jumpTarget);
+		}
 	}
 
 	@Override
 	public void ifGe(AbstractInsnNode jumpTarget) {
-		// TODO Auto-generated method stub
-
+		int op = this.facade.popIntegerOperand();
+		if (op >= 0) {
+			this.facade.jump(jumpTarget);
+		}
 	}
 
 	@Override
 	public void goTo(AbstractInsnNode jumpTarget) {
-		// TODO Auto-generated method stub
-
+		this.facade.jump(jumpTarget);
 	}
 
 	@Override
 	public void voidReturn() {
-		// TODO Auto-generated method stub
-
+		this.facade.popFrame();
 	}
 
 }

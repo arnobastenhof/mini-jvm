@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.util.CheckClassAdapter;
@@ -62,7 +61,7 @@ public class MiniJvmTest {
 	@Test
 	public void pseudoTest() { }
 
-	@Ignore @Test
+	@Test
 	public void arithmeticTest() throws IOException {
 		JvmAssert.forClass(ARITHMETIC_CLASS)
 			.state("", "", "BIPUSH").nextInsn()
@@ -76,7 +75,7 @@ public class MiniJvmTest {
 			.state("I", "-128", "RETURN").nextInsn().isDone();
 	}
 
-	@Ignore @Test
+	@Test
 	public void loadStoreTest() throws IOException {
 		JvmAssert.forClass(LOAD_STORE_CLASS)
 			.state("", "", "BIPUSH").nextInsn()
@@ -89,7 +88,7 @@ public class MiniJvmTest {
 			.state("", "", "RETURN").nextInsn().isDone();
 	}
 
-	@Ignore @Test
+	@Test
 	public void iincTest() throws IOException {
 		JvmAssert.forClass(IINC_CLASS)
 			.state("", "", "LDC").nextInsn()
@@ -98,7 +97,7 @@ public class MiniJvmTest {
 			.state("", "", "RETURN").nextInsn().isDone();
 	}
 
-	@Ignore @Test
+	@Test
 	public void ifThenElseTest() throws IOException {
 		JvmAssert.forClass(IF_THEN_ELSE_CLASS)
 			.state("", "", "LDC").nextInsn()
@@ -109,7 +108,7 @@ public class MiniJvmTest {
 			.state("", "", "RETURN").nextInsn().isDone();
 	}
 
-	@Ignore @Test
+	@Test
 	public void loopTest() throws IOException {
 		JvmAssert.forClass(LOOP_CLASS)
 			.state("", "", "BIPUSH").nextInsn()
