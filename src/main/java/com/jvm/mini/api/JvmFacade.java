@@ -25,22 +25,7 @@ import com.jvm.mini.impl.Frame;
  */
 public interface JvmFacade {
 
-	// Program counter
-
-	/**
-	 * Reads an instruction from code memory, advancing the program counter as
-	 * a side effect.
-	 */
-	AbstractInsnNode readInstruction();
-
-	/**
-	 * Sets the program counter to the specified {@code instruction}.
-	 *
-	 * @throws NullPointerException if {@code instruction == null}
-	 */
-	void jump(AbstractInsnNode instruction);
-
-	// JVM Stack
+	// === JVM Stack ===
 
 	/**
 	 * Pushes a new {@link Frame} on the JVM stack.
@@ -59,7 +44,22 @@ public interface JvmFacade {
 	 */
 	Frame popFrame();
 
-	// Operand stack
+	// === Program counter ===
+
+	/**
+	 * Reads an instruction from code memory, advancing the program counter as
+	 * a side effect.
+	 */
+	AbstractInsnNode readInstruction();
+
+	/**
+	 * Sets the program counter to the specified {@code instruction}.
+	 *
+	 * @throws NullPointerException if {@code instruction == null}
+	 */
+	void jump(AbstractInsnNode instruction);
+
+	// === Operand stack ===
 
 	/**
 	 * Pushes the specified {@code value} on the current frame's operand stack.
@@ -70,7 +70,7 @@ public interface JvmFacade {
 	void pushOperand(Object value);
 
 	/**
-	 * Pops an integer value from the current frame's operand stack.
+	 * Pops an {@link Integer} value from the current frame's operand stack.
 	 *
 	 * @throws IndexOutOfBoundsException if the current frame's operand stack
 	 * is empty.
@@ -80,7 +80,7 @@ public interface JvmFacade {
 	Integer popIntegerOperand();
 
 	/**
-	 * Pops a Long value from the current frame's operand stack.
+	 * Pops a {@link Long} value from the current frame's operand stack.
 	 *
 	 * @throws IndexOutOfBoundsException if the current frame's operand stack
 	 * is empty.
@@ -89,7 +89,7 @@ public interface JvmFacade {
 	 */
 	Long popLongOperand();
 
-	// Local variables
+	// === Local variables ===
 
 	/**
 	 * Stores the given {@code value} in the specified local variable.
@@ -100,32 +100,28 @@ public interface JvmFacade {
 	void store(int var, Object value);
 
 	/**
-	 * Returns the integer stored at the specified local variable.
+	 * Returns the {@link Integer} value stored at the specified local variable.
 	 *
 	 * @param var the local variable to load from
 	 * @throws IndexOutOfBoundsException if {@code var} does not fall within
 	 * the address space for local variables in the current frame
 	 * @throws ClassCastException if the value loaded from {@code var} cannot be
 	 * cast to {@link Integer}
-	 *
-	 * @return
 	 */
 	Integer loadInteger(int var);
 
 	/**
-	 * Returns the long stored at the specified local variable.
+	 * Returns the {@link Long} value stored at the specified local variable.
 	 *
 	 * @param var the local variable to load from
 	 * @throws IndexOutOfBoundsException if {@code var} does not fall within
 	 * the address space for local variables in the current frame
 	 * @throws ClassCastException if the value loaded from {@code var} cannot
 	 * be cast to {@link Long}
-	 *
-	 * @return
 	 */
 	Long loadLong(int var);
 
-	// Debugging
+	// === Debugging ===
 
 	/**
 	 * Returns the field descriptors for the entries on the operand stacks.
